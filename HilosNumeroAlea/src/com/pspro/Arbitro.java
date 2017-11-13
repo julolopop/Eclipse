@@ -20,7 +20,7 @@ public class Arbitro {
 	public int esTurnoDe() {
 		return this.turno;
 	}
-	public boolean seAcabo() {
+	public synchronized boolean seAcabo() {
 		return this.acertado;
 	}
 	public synchronized void jugar(int jugador,int jugada) {

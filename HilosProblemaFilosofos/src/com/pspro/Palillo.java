@@ -1,15 +1,31 @@
 package com.pspro;
 
-public class Palillo {
-
+class Palillo{
 	int numero;
-	boolean usando = false;
-	
-	public Palillo(int numero) {
-		this.numero = numero;
+	private boolean enUso;
+	public Palillo(int x) {
+		this.numero = x;
+		enUso = false;
+	}
+	public synchronized void coger(){
+		while (enUso) {
+			System.out.println("Palillo "+numero+" ocupado, espera");
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+
+		enUso = true;
+		System.out.println("Palillo "+numero+" en uso");
 	}
 	
-	
-	public synchronized void Coger() {this.usando = true;}
-	public synchronized void Soltar() {this.usando = false;}
+	public synchronized void soltar(){
+		enUso = false;
+		System.out.println("Palillo "+numero+" libre");
+
+		this.notify();
+	}
 }

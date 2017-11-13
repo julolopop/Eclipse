@@ -2,20 +2,25 @@ package com.pspro;
 
 public class SimulacionCena {
 
-	
-	
 	public static void main(String[] args) {
-		int comensales = 5;
-		int comidasIndividuales=3;
-		Palillo[] palillos= new Palillo[comensales];
-	
+		int comensales = Integer.parseInt(args[0]);
+		int almuerzos = Integer.parseInt(args[1]);
+		Filosofo f;
 		
-		for (int i = 0; i < comensales; i++) {
-			new Filosofo(i,comidasIndividuales);
-			palillos[i]= new Palillo(i);
+		Cena cena = new Cena(comensales);
+		for(int i = 0; i<comensales;i++){
+			f = new Filosofo(i,almuerzos,cena);
+			f.start();
 		}
 		
-		System.out.println("fin principal");
+		
+
 	}
 
 }
+
+
+
+
+
+
