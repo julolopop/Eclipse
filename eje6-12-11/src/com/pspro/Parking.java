@@ -1,13 +1,13 @@
 package com.pspro;
 
-public class Caja {
+public class Parking {
 	private int[] buffer;
 	private int contadorOcupado =0;
-	private int posLectura=0;
+
 	private int posEscritura=0;
 	boolean ocupado = false;
 	
-public Caja(int cajas) {
+public Parking(int cajas) {
 	buffer = new int[cajas];
 	for (int i = 0; i < cajas; i++) {
 		buffer[i]=-1;
@@ -15,7 +15,7 @@ public Caja(int cajas) {
 }	
 
 
-public synchronized int atender() {
+public synchronized void Aparcar(int matricula) {
 	while (contadorOcupado==buffer.length) {
 		try {
 			this.wait();
@@ -25,24 +25,32 @@ public synchronized int atender() {
 	}
 	if(!ocupado) {
 		ocupado=true;
-		System.out.println("La caja "+posEscritura+" pide el dinero");
-		buffer[posEscritura] = (int)Math.random()*10;
+		System.out.println("El coche ha aparcado en la posicion "+posEscritura);
+
+		buffer[posEscritura] = matricula;
 		contadorOcupado++;
 		posEscritura = (posEscritura + 1)%buffer.length;
 		
 	}
 	
-	return buffer[posEscritura];
+
 }
 public synchronized void Salir() {
-	System.out.println("la caja "+posLectura+ " esta libre");
+	System.out.println("El coche ha salido");
 	ocupado=false;
 	contadorOcupado--;
-	posLectura = (posLectura + 1)%buffer.length;
 	notifyAll();
 }
 
 
+public void MostrarSalida() {
+	String salida = "(Parking  \nhuecos:  ";
+	for (int i = 0; i < buffer.length; i++) {
+		salida += " "+buffer[i];
+	}
+System.out.println(salida);
+
+}
 	
 
 }
