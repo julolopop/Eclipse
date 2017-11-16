@@ -14,7 +14,7 @@ public class Coche extends Thread {
 	System.out.println("El coche "+currentThread().getName()+" se pone en cola");
 	parking.Aparcar(numero);
 	System.out.println("El coche "+currentThread().getName()+" ha aparcardo");
-	parking.MostrarSalida();
+	
 	try {
 		Thread.sleep((long) (Math.random()*2000));
 	} catch (InterruptedException e) {

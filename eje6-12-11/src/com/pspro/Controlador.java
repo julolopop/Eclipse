@@ -20,12 +20,6 @@ public class Controlador {
 		for (int i = 0; i < nCoche; i++) {
 			coche = new Coche(parking,i);
 			coche.start();
-			try {
-				coche.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 		
