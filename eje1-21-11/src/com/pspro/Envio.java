@@ -1,24 +1,24 @@
 package com.pspro;
 
 public class Envio extends Thread {
-	Almacen alm;
+	Almacen almacen;
 
-	public Envio(Almacen alm) {
-		this.alm = alm;
+	public Envio(Almacen almacen) {
+		this.almacen = almacen;
 
 	}
 	@Override
 	public void run() {
-		while(alm.getState()) {
+		while(almacen.getState()) {
 		try { 
-			sleep(800); // simulación de 8 horas 
+			sleep(8000);
 			} 
 			catch (InterruptedException e)
 			 { 
 				e.printStackTrace(); 
 			 }
 			
-		alm.envio(400+((int)(Math.random()*600+1)));	
+		almacen.envio(400+((int)(Math.random()*600+1)));	
 	}
 		
 	}

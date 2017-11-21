@@ -4,18 +4,18 @@ public class Almacen {
 	
 		int numPiezas=8000;
 		int maxPiezas = 20000;
-		boolean state;
+		boolean estado;
 		int contadorEnvios;
 		boolean pedidoRealizado;
 		
 		public synchronized boolean getState()
 		{
-			return state;
+			return estado;
 		}
 		public Almacen() {
 			contadorEnvios =0;
 			pedidoRealizado=false;
-			state = true;
+			estado = true;
 		}
 
 		public synchronized void envio(int numPiezasEnvio)
@@ -29,16 +29,17 @@ public class Almacen {
 					e.printStackTrace();
 				}
 			}
-			if(state)
+			if(estado)
 			{
-			if(numPiezas+numPiezasEnvio>maxPiezas)
+			if((numPiezas+numPiezasEnvio)>maxPiezas)
 			{
-				System.out.println("Hemos llenado el almacen!");
-				state = false;
+				System.out.println("El almacen esta lleno");
+				estado = false;
 				pedidoRealizado=false;
 			}else {
 				numPiezas=numPiezas+numPiezasEnvio;
 				System.out.println("Llegan "+numPiezasEnvio+" piezas");
+				
 				System.out.println("Hay "+numPiezas+" piezas en el almacén");
 				contadorEnvios++;
 			}
@@ -63,13 +64,13 @@ public class Almacen {
 						e.printStackTrace();
 					}
 			}
-			if(state)
+			if(estado)
 			{
-			System.out.println("Pedido de "+numPiezasRetirada);
+			System.out.println("Se ha realizado un pedido de "+numPiezasRetirada+" piezas");
 			if(numPiezas-numPiezasRetirada<1)
 			{
-				System.out.println("No hay piezas suficientes!");
-				state = false;
+				System.out.println("No hay piezas ");
+				estado = false;
 				pedidoRealizado=true;
 			}
 			else {
