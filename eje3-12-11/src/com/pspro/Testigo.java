@@ -3,9 +3,10 @@ package com.pspro;
 public class Testigo {
 
 	boolean enUso = false;
+	int turno=0;
 	
-	public synchronized void coger() {
-		while (enUso) {
+	public synchronized void coger(int corredor) {
+		while (corredor!=turno) {
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -20,6 +21,7 @@ public class Testigo {
 	
 	public synchronized void soltar() {
 		enUso=false;
-		notify();
+		turno++;
+		notifyAll();
 	}
 }

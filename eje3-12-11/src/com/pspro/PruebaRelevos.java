@@ -8,17 +8,10 @@ public class PruebaRelevos {
 		Corredor corredor;
 		
 		for (int i = 0; i < corredores; i++) {
-			corredor = new Corredor(testigo);
+			corredor = new Corredor(testigo,i);
 			corredor.start();
-			try {
-				corredor.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 		
-		
-		System.out.println("Fin de la carrera");
 	}
 
 }

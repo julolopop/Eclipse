@@ -3,14 +3,16 @@ package com.pspro;
 public class Corredor extends Thread {
 	
 	Testigo testigo;
+	int corredor;
 	
-	public Corredor(Testigo testigo) {
+	public Corredor(Testigo testigo,int corredor) {
 	this.testigo = testigo;
+	this.corredor =corredor;
 	}
 	@Override
 	public void run() {
 		
-		testigo.coger();
+		testigo.coger(this.corredor);
 		System.out.println("El corredor"+currentThread().getName()+" ha empezado a correr");
 		try {
 			Thread.sleep(2000);

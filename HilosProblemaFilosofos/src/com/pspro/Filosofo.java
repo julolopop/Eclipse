@@ -1,25 +1,39 @@
 package com.pspro;
 
-class Filosofo extends Thread{
+
+class Filosofo implements Runnable{
 	private Cena cena;
 	private int piz, pde;
 	private int numero; 
 	private int veces; 
+	private Thread hilo;
+	
 	public Filosofo(int pos, int nVeces,Cena cena) {
 		this.numero = pos;
 		this.cena = cena;
 		this.veces = nVeces;
 		piz = cena.cogerPalilloIzquierdo(pos);
 		pde = cena.cogerPalilloDerecho(pos);
+		hilo = new Thread(this);
 	}
 	@Override
 	public void run() {
+		//long a,b;
 		for(int i= 0; i< veces; i++){
+			//a=System.currentTimeMillis();
 			pensar();
 			cogerPalillos();
 			comer();
 			soltarPalillos();
+			//b= System.currentTimeMillis();
+			//System.out.println(b-a);
 		}
+	}
+	
+
+	
+	public void start() {
+		hilo.start();
 	}
 	public void pensar(){
 		System.out.println("Filosofo "+ numero +" pensando");
@@ -49,10 +63,9 @@ class Filosofo extends Thread{
 			e.printStackTrace();
 		}
 	}
-	public void soltarPalillos(){
+	public void soltarPalillos(){		
 		System.out.println("Filosofo "+ numero +" suelta sus palillos");
 			cena.cogerPalillo(piz).soltar();
 			cena.cogerPalillo(pde).soltar();
-		
 	}
 }
