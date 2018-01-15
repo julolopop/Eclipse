@@ -1,7 +1,10 @@
 package com.pspro;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -20,6 +23,8 @@ public class ServidorHilo extends Thread{
 	@Override
 	public void run() {
 		BufferedOutputStream bo;
+		BufferedInputStream is;
+		BufferedReader br;
 		PrintWriter pw = null;
 		
 		try {
@@ -27,6 +32,11 @@ public class ServidorHilo extends Thread{
 			pw = new PrintWriter(bo, true);
 			
 			pw.println(this.id + " : "+ this.mensage);
+			
+			
+			// y espera una respuesta en forma de string desde el cliente
+			br = new BufferedReader(new (InputStreamReader(System.in)))
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

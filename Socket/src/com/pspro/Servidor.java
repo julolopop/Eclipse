@@ -9,7 +9,12 @@ public class Servidor {
 	static final int PUERTO = 5000;
 	
 	public static void main(String[] args) {
-		
+		/*
+		 * -Djava.net.preferIPv4Stack=true //Argumento
+		 * System.setProperty("java.net.preferIPv4Stack" , "true");*/
+
+		System.setProperty("java.net.preferIPv4Stack" , "true");
+		new Servidor();
 		
 	}
 	
@@ -28,7 +33,7 @@ public class Servidor {
 				System.out.println("Se esta atendiendop al nuevo cliente :"+ncCli);
 				
 				//creamos un holo para atender al cliente y asi liberar al socket principal
-				new ServidorHilo(skAtencion,ncCli);						
+				new ServidorHilo(skAtencion,ncCli).start();						
 			}
 			
 			
