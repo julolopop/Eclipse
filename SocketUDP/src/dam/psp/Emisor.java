@@ -1,4 +1,4 @@
-package com.pspro;
+package dam.psp;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -13,8 +13,9 @@ public class Emisor {
 	public static final int PUERTOEMISOR = 5555;
 	public static final int PUERTORECEPTOR = 4444;
 	public static final String IPEMISOR = "0.0.0.0";
-	public static final String IPRECEPTOR = "192.168.2.171";
+	//public static final String IPRECEPTOR = "192.168.2.171";
 	//public static final String IPRECEPTOR = "192.168.3.57";
+	public static final String IPRECEPTOR = "192.168.255.255";
 	
 	public Emisor() {
 		DatagramSocket emisor = null;
@@ -22,7 +23,7 @@ public class Emisor {
 		InetAddress IPLocal;
 		InetAddress IPRemoto;
 		
-		byte[] contenido = "lolito es ...".getBytes();
+		byte[] contenido = new DatoUDP("hola don pepito",171).ToByteArray();
 		
 		try {
 			IPLocal = InetAddress.getByName(IPEMISOR);

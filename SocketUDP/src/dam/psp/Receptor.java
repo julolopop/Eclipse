@@ -1,4 +1,4 @@
-package com.pspro;
+package dam.psp;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -23,12 +23,12 @@ public class Receptor {
 				//se recibe un dato y se escribe por pantalla 
 				socket.receive(dato);//bloqueante
 				System.out.println("Recibido un paquete de : "+ dato.getAddress().getHostName() +";");
-				byte[] contenido = dato.getData();
+				DatoUDP contenido = DatoUDP.FromByteArray(dato.getData());
 				
 				System.out.println(" de longitudad : "+dato.getLength());
 				
 				//deserializamos a string
-				System.out.println(new String(contenido));
+				System.out.println(contenido.cadenaTexto+" : "+contenido.valor);
 				/*
 				for (int i = 0; i < dato.getLength(); i++) {
 					System.out.print(dato.getData()[i]);
