@@ -15,6 +15,7 @@ public class CirculoCLI {
 		ICirculo circulo = null;
 		ICalculadora calculadora= null;
 		
+		
 		System.out.println("localizando en la red el objeto remoto...");
 		Registry registro1 = LocateRegistry.getRegistry(servidor, puerto1);
 		Registry registro2 = LocateRegistry.getRegistry(servidor, puerto2);
