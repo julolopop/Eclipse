@@ -1,0 +1,377 @@
+srv = 12345678
+cli = 87654321
+
+
+
+usuario@pc-11 ~ $ cd Escritorio/
+usuario@pc-11 ~/Escritorio $ mkdir claves
+usuario@pc-11 ~/Escritorio $ cd claves/
+usuario@pc-11 ~/Escritorio/claves $ ls
+usuario@pc-11 ~/Escritorio/claves $ openssl
+OpenSSL> exit
+usuario@pc-11 ~/Escritorio/claves $ man keytool
+usuario@pc-11 ~/Escritorio/claves $ keytool -genkeypair -keystore AlmacenSRV -alias servidor -keyalg RSA -validity 90 -storetype pkcs12
+Introduzca la contraseña del almacén de claves:  
+Volver a escribir la contraseña nueva: 
+¿Cuáles son su nombre y su apellido?
+  [Unknown]:  Juan Manuel Diaz Ortiz
+¿Cuál es el nombre de su unidad de organización?
+  [Unknown]:  Tulevasi
+¿Cuál es el nombre de su organización?
+  [Unknown]:  Tulevasi
+¿Cuál es el nombre de su ciudad o localidad?
+  [Unknown]:  Malaga
+¿Cuál es el nombre de su estado o provincia?
+  [Unknown]:  Andalucia
+¿Cuál es el código de país de dos letras de la unidad?
+  [Unknown]:  ES
+¿Es correcto CN=Juan Manuel Diaz Ortiz, OU=Tulevasi, O=Tulevasi, L=Malaga, ST=Andalucia, C=ES?
+  [no]:  si
+
+usuario@pc-11 ~/Escritorio/claves $ ls
+AlmacenSRV
+usuario@pc-11 ~/Escritorio/claves $ keytool -genkeypair -keystore AlmacenCLI -alias cliente -keyalg RSA -validity 90 -storetype pkcs12
+Introduzca la contraseña del almacén de claves:  
+Volver a escribir la contraseña nueva: 
+¿Cuáles son su nombre y su apellido?
+  [Unknown]:  Cliente
+¿Cuál es el nombre de su unidad de organización?
+  [Unknown]:  Cliente
+¿Cuál es el nombre de su organización?
+  [Unknown]:  Cliente
+¿Cuál es el nombre de su ciudad o localidad?
+  [Unknown]:  Malaga
+¿Cuál es el nombre de su estado o provincia?
+  [Unknown]:  Andalucia
+¿Cuál es el código de país de dos letras de la unidad?
+  [Unknown]:  ES
+¿Es correcto CN=Cliente, OU=Cliente, O=Cliente, L=Malaga, ST=Andalucia, C=ES?
+  [no]:  si
+
+usuario@pc-11 ~/Escritorio/claves $ ls
+AlmacenCLI  AlmacenSRV
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenSRV -alias servidor  -file servidor.cer
+Introduzca la contraseña del almacén de claves:  
+Certificado almacenado en el archivo <servidor.cer>
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenCLI -alias cliente  -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+Certificado almacenado en el archivo <cliente.cer>
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenSRV -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenSRV -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenCLI -file servidor.cer 
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ java --version
+Unrecognized option: --version
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+usuario@pc-11 ~/Escritorio/claves $ java -version
+java version "1.8.0_144"
+Java(TM) SE Runtime Environment (build 1.8.0_144-b01)
+Java HotSpot(TM) 64-Bit Server VM (build 25.144-b01, mixed mode)
+usuario@pc-11 ~/Escritorio/claves $ sudo update-alternatives --config java
+[sudo] password for usuario: 
+Existen 2 opciones para la alternativa java (que provee /usr/bin/java).
+
+  Selección   Ruta                                            Prioridad  Estado
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      modo automático
+  1            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo manual
+* 2            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      modo manual
+
+Press <enter> to keep the current choice[*], or type selection number: 1
+update-alternatives: utilizando /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java para proveer /usr/bin/java (java) en modo manual
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenCLI -file servidor.cer 
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ sudo update-alternatives --config javaExisten 2 opciones para la alternativa java (que provee /usr/bin/java).
+
+  Selección   Ruta                                            Prioridad  Estado
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo automático
+* 1            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo manual
+  2            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      modo manual
+
+Press <enter> to keep the current choice[*], or type selection number: 2
+update-alternatives: utilizando /usr/lib/jvm/java-8-oracle/jre/bin/java para proveer /usr/bin/java (java) en modo manual
+usuario@pc-11 ~/Escritorio/claves $ ^C
+usuario@pc-11 ~/Escritorio/claves $ 
+usuario@pc-11 ~ $ cd Escritorio/
+usuario@pc-11 ~/Escritorio $ mkdir claves
+usuario@pc-11 ~/Escritorio $ cd claves/
+usuario@pc-11 ~/Escritorio/claves $ ls
+usuario@pc-11 ~/Escritorio/claves $ openssl
+OpenSSL> exit
+usuario@pc-11 ~/Escritorio/claves $ man keytool
+usuario@pc-11 ~/Escritorio/claves $ keytool -genkeypair -keystore AlmacenSRV -alias servidor -keyalg RSA -validity 90 -storetype pkcs12
+Introduzca la contraseña del almacén de claves:  
+Volver a escribir la contraseña nueva: 
+¿Cuáles son su nombre y su apellido?
+  [Unknown]:  Juan Manuel Diaz Ortiz
+¿Cuál es el nombre de su unidad de organización?
+  [Unknown]:  Tulevasi
+¿Cuál es el nombre de su organización?
+  [Unknown]:  Tulevasi
+¿Cuál es el nombre de su ciudad o localidad?
+  [Unknown]:  Malaga
+¿Cuál es el nombre de su estado o provincia?
+  [Unknown]:  Andalucia
+¿Cuál es el código de país de dos letras de la unidad?
+  [Unknown]:  ES
+¿Es correcto CN=Juan Manuel Diaz Ortiz, OU=Tulevasi, O=Tulevasi, L=Malaga, ST=Andalucia, C=ES?
+  [no]:  si
+
+usuario@pc-11 ~/Escritorio/claves $ ls
+AlmacenSRV
+usuario@pc-11 ~/Escritorio/claves $ keytool -genkeypair -keystore AlmacenCLI -alias cliente -keyalg RSA -validity 90 -storetype pkcs12
+Introduzca la contraseña del almacén de claves:  
+Volver a escribir la contraseña nueva: 
+¿Cuáles son su nombre y su apellido?
+  [Unknown]:  Cliente
+¿Cuál es el nombre de su unidad de organización?
+  [Unknown]:  Cliente
+¿Cuál es el nombre de su organización?
+  [Unknown]:  Cliente
+¿Cuál es el nombre de su ciudad o localidad?
+  [Unknown]:  Malaga
+¿Cuál es el nombre de su estado o provincia?
+  [Unknown]:  Andalucia
+¿Cuál es el código de país de dos letras de la unidad?
+  [Unknown]:  ES
+¿Es correcto CN=Cliente, OU=Cliente, O=Cliente, L=Malaga, ST=Andalucia, C=ES?
+  [no]:  si
+
+usuario@pc-11 ~/Escritorio/claves $ ls
+AlmacenCLI  AlmacenSRV
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenSRV -alias servidor  -file servidor.cer
+Introduzca la contraseña del almacén de claves:  
+Certificado almacenado en el archivo <servidor.cer>
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenCLI -alias cliente  -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+Certificado almacenado en el archivo <cliente.cer>
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenSRV -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenSRV -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenCLI -file servidor.cer 
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ java --version
+Unrecognized option: --version
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+usuario@pc-11 ~/Escritorio/claves $ java -version
+java version "1.8.0_144"
+Java(TM) SE Runtime Environment (build 1.8.0_144-b01)
+Java HotSpot(TM) 64-Bit Server VM (build 25.144-b01, mixed mode)
+usuario@pc-11 ~/Escritorio/claves $ sudo update-alternatives --config java
+[sudo] password for usuario: 
+Existen 2 opciones para la alternativa java (que provee /usr/bin/java).
+
+  Selección   Ruta                                            Prioridad  Estado
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      modo automático
+  1            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo manual
+* 2            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      modo manual
+
+Press <enter> to keep the current choice[*], or type selection number: 1
+update-alternatives: utilizando /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java para proveer /usr/bin/java (java) en modo manual
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenCLI -file servidor.cer 
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ sudo update-alternatives --config javaExisten 2 opciones para la alternativa java (que provee /usr/bin/java).
+
+  Selección   Ruta                                            Prioridad  Estado
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo automático
+* 1            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo manual
+  2            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      modo manual
+
+Press <enter> to keep the current choice[*], or type selection number: 2
+update-alternatives: utilizando /usr/lib/jvm/java-8-oracle/jre/bin/java para proveer /usr/bin/java (java) en modo manual
+usuario@pc-11 ~/Escritorio/claves $ 
+
+
+
+
+usuario@pc-11 ~ $ cd Escritorio/
+usuario@pc-11 ~/Escritorio $ mkdir claves
+usuario@pc-11 ~/Escritorio $ cd claves/
+usuario@pc-11 ~/Escritorio/claves $ ls
+usuario@pc-11 ~/Escritorio/claves $ openssl
+OpenSSL> exit
+usuario@pc-11 ~/Escritorio/claves $ man keytool
+usuario@pc-11 ~/Escritorio/claves $ keytool -genkeypair -keystore AlmacenSRV -alias servidor -keyalg RSA -validity 90 -storetype pkcs12
+Introduzca la contraseña del almacén de claves:  
+Volver a escribir la contraseña nueva: 
+¿Cuáles son su nombre y su apellido?
+  [Unknown]:  Juan Manuel Diaz Ortiz
+¿Cuál es el nombre de su unidad de organización?
+  [Unknown]:  Tulevasi
+¿Cuál es el nombre de su organización?
+  [Unknown]:  Tulevasi
+¿Cuál es el nombre de su ciudad o localidad?
+  [Unknown]:  Malaga
+¿Cuál es el nombre de su estado o provincia?
+  [Unknown]:  Andalucia
+¿Cuál es el código de país de dos letras de la unidad?
+  [Unknown]:  ES
+¿Es correcto CN=Juan Manuel Diaz Ortiz, OU=Tulevasi, O=Tulevasi, L=Malaga, ST=Andalucia, C=ES?
+  [no]:  si
+
+usuario@pc-11 ~/Escritorio/claves $ ls
+AlmacenSRV
+usuario@pc-11 ~/Escritorio/claves $ keytool -genkeypair -keystore AlmacenCLI -alias cliente -keyalg RSA -validity 90 -storetype pkcs12
+Introduzca la contraseña del almacén de claves:  
+Volver a escribir la contraseña nueva: 
+¿Cuáles son su nombre y su apellido?
+  [Unknown]:  Cliente
+¿Cuál es el nombre de su unidad de organización?
+  [Unknown]:  Cliente
+¿Cuál es el nombre de su organización?
+  [Unknown]:  Cliente
+¿Cuál es el nombre de su ciudad o localidad?
+  [Unknown]:  Malaga
+¿Cuál es el nombre de su estado o provincia?
+  [Unknown]:  Andalucia
+¿Cuál es el código de país de dos letras de la unidad?
+  [Unknown]:  ES
+¿Es correcto CN=Cliente, OU=Cliente, O=Cliente, L=Malaga, ST=Andalucia, C=ES?
+  [no]:  si
+
+usuario@pc-11 ~/Escritorio/claves $ ls
+AlmacenCLI  AlmacenSRV
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenSRV -alias servidor  -file servidor.cer
+Introduzca la contraseña del almacén de claves:  
+Certificado almacenado en el archivo <servidor.cer>
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenCLI -alias cliente  -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+Certificado almacenado en el archivo <cliente.cer>
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenSRV -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenSRV -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenCLI -file servidor.cer 
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ java --version
+Unrecognized option: --version
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+usuario@pc-11 ~/Escritorio/claves $ java -version
+java version "1.8.0_144"
+Java(TM) SE Runtime Environment (build 1.8.0_144-b01)
+Java HotSpot(TM) 64-Bit Server VM (build 25.144-b01, mixed mode)
+usuario@pc-11 ~/Escritorio/claves $ sudo update-alternatives --config java
+[sudo] password for usuario: 
+Existen 2 opciones para la alternativa java (que provee /usr/bin/java).
+
+  Selección   Ruta                                            Prioridad  Estado
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      modo automático
+  1            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo manual
+* 2            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      modo manual
+
+Press <enter> to keep the current choice[*], or type selection number: 1
+update-alternatives: utilizando /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java para proveer /usr/bin/java (java) en modo manual
+usuario@pc-11 ~/Escritorio/claves $ keytool -export -keystore AlmacenCLI -file servidor.cer 
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ sudo update-alternatives --config javaExisten 2 opciones para la alternativa java (que provee /usr/bin/java).
+
+  Selección   Ruta                                            Prioridad  Estado
+------------------------------------------------------------
+  0            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo automático
+* 1            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      modo manual
+  2            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      modo manual
+
+Press <enter> to keep the current choice[*], or type selection number: 2
+update-alternatives: utilizando /usr/lib/jvm/java-8-oracle/jre/bin/java para proveer /usr/bin/java (java) en modo manual
+usuario@pc-11 ~/Escritorio/claves $ ^C
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -import -keystore AlmacenCLI  -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: La entrada no es un certificado X.509
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -import -keystore AlmacenCLI -alias cliente -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: La respuesta no tiene certificados
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -import -keystore AlmacenCLI -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.io.FileNotFoundException: cliente.cer (No existe el archivo o el directorio)
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -export -keystore AlmacenCLI -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+error de herramienta de claves: java.lang.Exception: El alias <mykey> no existe
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -export -keystore AlmacenCLI -alias cliente -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+Certificado almacenado en el archivo <cliente.cer>
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -export -keystore AlmacenSRV -alias servidor -file servidor.cer
+error de herramienta de claves: java.lang.Exception: El archivo de almacén de claves no existe: AlmacenSRV
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -export -keystore AlmacenS -alias servidor -file servidor.cer
+AlmacenSRV
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -export -keystore AlmacenS -alias servidor -file servidor.cer
+AlmacenSRV
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -export -keystore Almacen -alias servidor -file servidor.cer
+AlmacenCLI  AlmacenSRV  
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -export -keystore AlmacenS -alias servidor -file servidor.cer
+error de herramienta de claves: java.lang.Exception: El archivo de almacén de claves no existe: AlmacenS
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -export -keystore AlmacenSRV -alias servidor -file servidor.cer
+Introduzca la contraseña del almacén de claves:  
+Certificado almacenado en el archivo <servidor.cer>
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -import -keystore AlmacenSRV  -file cliente.cer
+Introduzca la contraseña del almacén de claves:  
+Propietario: CN=Cliente, OU=Cliente, O=Cliente, L=Malaga, ST=Andalucia, C=ES
+Emisor: CN=Cliente, OU=Cliente, O=Cliente, L=Malaga, ST=Andalucia, C=ES
+Número de serie: 4137389f
+Válido desde: Thu Feb 22 12:05:09 CET 2018 hasta: Wed May 23 13:05:09 CEST 2018
+Huellas digitales del Certificado:
+	 MD5: AD:10:07:4F:A6:FA:DA:52:49:7E:48:0F:71:F1:B0:52
+	 SHA1: B9:DC:53:0C:18:A4:25:C9:C3:3D:26:D1:CC:B5:E5:06:12:F7:BC:4D
+	 SHA256: 09:55:98:8A:6B:B5:71:7D:EC:0D:EF:D4:44:AF:F7:CD:62:32:8A:29:7F:BC:76:A0:D6:68:23:14:AC:A7:B3:88
+	 Nombre del Algoritmo de Firma: SHA256withRSA
+	 Versión: 3
+
+Extensiones: 
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 2B 10 58 05 2E 5C F3 B5   C8 CE 79 D4 60 42 C7 92  +.X..\....y.`B..
+0010: F9 11 D1 ED                                        ....
+]
+]
+
+¿Confiar en este certificado? [no]:  si
+Se ha agregado el certificado al almacén de claves
+usuario@pc-11 ~/Escritorio/claves $ keytool -J-Duser.language=es -import -keystore AlmacenCLI  -file servidor.cer
+Introduzca la contraseña del almacén de claves:  
+Propietario: CN=Juan Manuel Diaz Ortiz, OU=Tulevasi, O=Tulevasi, L=Malaga, ST=Andalucia, C=ES
+Emisor: CN=Juan Manuel Diaz Ortiz, OU=Tulevasi, O=Tulevasi, L=Malaga, ST=Andalucia, C=ES
+Número de serie: 30393468
+Válido desde: Thu Feb 22 12:03:03 CET 2018 hasta: Wed May 23 13:03:03 CEST 2018
+Huellas digitales del Certificado:
+	 MD5: 8B:8C:80:37:6C:2C:33:32:E3:6B:8C:6A:E9:0A:D3:C1
+	 SHA1: 90:E0:C5:CB:65:B0:FA:4A:69:18:2A:84:58:56:65:61:DB:97:1B:65
+	 SHA256: A4:89:C3:10:86:23:2A:69:77:26:2D:32:89:B5:81:BF:47:F3:E4:35:4C:C4:BA:76:EE:41:03:A0:21:69:3C:FC
+	 Nombre del Algoritmo de Firma: SHA256withRSA
+	 Versión: 3
+
+Extensiones: 
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: F8 28 08 59 95 C1 6C 76   BB A4 91 2E 13 75 01 6E  .(.Y..lv.....u.n
+0010: A2 8C 10 4B                                        ...K
+]
+]
+
+¿Confiar en este certificado? [no]:  si
+Se ha agregado el certificado al almacén de claves
+usuario@pc-11 ~/Escritorio/claves $ 
