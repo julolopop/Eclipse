@@ -28,6 +28,7 @@ class srv_Hilo extends Thread{
 			InputStreamReader is = new InputStreamReader(socket.getInputStream(),"utf8");
 			BufferedReader br = new BufferedReader(is);
 			
+						
 			String message = br.readLine();
 			System.out.println(message);
 			
@@ -41,9 +42,11 @@ class srv_Hilo extends Thread{
 			
 			pw.write(message);
 			pw.flush();
+			
+			
 			pw.close();
-			
-			
+			br.close();
+			socket.close();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -57,7 +60,7 @@ class srv_Hilo extends Thread{
 
 public class Srv_ssl {
 
-	public int PUERTO = 5555;
+	public int PUERTO = 8888;
 
 	public Srv_ssl() throws Exception{
 		System.out.println("Obteniendo factoria del socket para el servidor");
@@ -76,6 +79,11 @@ public class Srv_ssl {
 	}
 	
 	public static void main(String[] args) {
+		System.setProperty("java.net.ss.keyStore", "AlmacenSRV");
+		System.setProperty("java.net.ss.keyStorePassword", "12345678");
+		System.setProperty("java.net.ss.trustStore", "AlmacenSRV");
+		System.setProperty("java.net.ss.trustStorePassword", "12345678");
+		
 		try {
 			new Srv_ssl();
 		} catch (Exception e) {
